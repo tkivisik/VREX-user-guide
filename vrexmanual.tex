@@ -1,0 +1,630 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[estonian,english]{babel}
+\usepackage[margin=1in,a4paper]{geometry}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\renewcommand{\arraystretch}{1.5}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{hyphenat}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\usepackage{imakeidx}
+\makeindex
+
+\usepackage{graphviz}
+\usepackage{menukeys}
+
+\usepackage{ccicons}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% USER-DEFINED COMMANDS
+\newcommand{\vrexx}{VR\textsc{ex}}				% VREX style
+\newcommand{\button}[1]{\textsc{#1}}			% Button style
+\newcommand{\vrexlabel}[1]{\textbf{#1}}			% Label style
+\newcommand{\comm}[1]{}							% Comment
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% IMPORTANT INFORMATION - keep up to date
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\vrexlab}{Virtual Neuroscience Lab}		% LAB name
+\newcommand{\vrexversion}{0.1 \textit{Beta}}		% VREX version
+%\newcommand{\vrexrepositorynolink}{https://bitbucket.org/virtualneurosciencetoolbox} 	% repository
+\newcommand{\vrexwww}{http://vrex.mozello.com/}	 	% www
+\newcommand{\vrexmailnolink}{vrex.toolbox@gmail.com}% e-mail without a link
+\newcommand{\vrexlicence}{\ccbysa}					% VREX licence icons
+\newcommand{\licenceinfo}{\href{https://creativecommons.org/licenses/by-sa/4.0/}{https://creativecommons.org/licenses/by-sa/4.0/}}	% CC-BY-SA licence info
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% HEADER AND FOOTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead[<even output>]{\vrexx\ toolbox v. \vrexversion} \chead[]{} \rhead[<even output>]{}
+\lfoot[<even output>]{} \cfoot[]{} \rfoot[<even output>]{\thepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF info setup
+%\hypersetup{pdftitle={A Perfect Day}}
+\hypersetup{
+  pdfinfo={  
+   	Title={VREX Toolbox User Guide},    
+    Subject={Virtual Reality Experiments},
+    Author={Taavi Kivisik},
+%    Creator={}
+    Producer={Virtual Neuroscience Lab},
+    Keywords={Virtual Reality; Experiments; VREX; Toolbox; Memory; Change Blindness}
+    }
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SHORTCUTS
+\newcommand{\vrexmail}{\href{mailto:\vrexmailnolink}{\vrexmailnolink}}	% e-mail with a link
+\newcommand{\vrexcontact}{\parindent=0in Homepage: \href{http://\vrexwww}{\vrexwww}\par
+E-mail: \vrexmail} 														% webpage + e-mail = \vrexcontact
+\newcommand{\vrexrepository}{\url{\vrexrepositorynolink}} 				% repository with a link
+\newcommand{\arrows}{													% arrow keys
+\begin{minipage}[t][2ex][b]{4.8em}
+\begin{align*}
+& \keys{\arrowkeyup}\\[-1ex]
+\keys{\arrowkeyleft}&\keys{\arrowkeydown}\keys{\arrowkeyright}
+\end{align*}
+\end{minipage}
+}
+
+\newcommand{\wasd}{														% WASD
+\begin{minipage}[t][2ex][b]{4.8em}
+\begin{align*}
+& \keys{W}\\[-1ex]
+\keys{A}&\keys{S}\keys{D}
+\end{align*}
+\end{minipage}
+}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Text document begins
+\begin{document}
+\input{./vrextitle.tex}
+
+{\parindent=0pt 
+\textbf{Virtual Reality Experiments} (\vrexx) toolbox version \vrexversion . Madis Vasser, Markus Kängsepp, Murad Magomedkerimov, Kälver Kilvits, Vladislav Stafinjak, Taavi Kivisik, Raul Vicente, Jaan Aru 2016 \vrexlicence .\\
+
+\textbf{Cite as:} Vasser, M; Kängsepp, M; Magomedkerimov, M; Kilvits, K; Stafinjak, V; Kivisik, T; Vicente, R \& Aru, J. (2016) VREX 1.0: Toolbox for Creating 3D Virtual Reality Experiments. (In preparation).\\
+
+\textbf{Virtual Neuroscience Lab}, University of Tartu, Estonia.\\
+
+\vrexx\ toolbox is a free open-source software, licenced under Creative Commons BY-SA licence \vrexlicence. It means you are free to use it and build upon it as long as the \vrexx\ toolbox and \vrexlab\ is mentioned, and that new work is licenced under same conditions as well. Read more about the licence from here:\\ \licenceinfo .\\
+
+\vrexx :\\
+\vrexcontact\index{contact}\\
+
+%XXXX Sourcecode repository: \vrexrepository\vfill
+
+\textbf{Acknowledgements}
+
+Most of the objects you can use to furnish environments came from the Blend Swap website --- \href{www.blendswap.com}{www.blendswap.com}. We would like to especially point out the works by Jay Hardy, and users PigArt and Cenobi.\\
+
+Although the toolbox was created by the core team named above there were many others contributing to the project. We would like to thank Kristiina Kompus, Andero Uusberg and Helen Uusberg for early input; Egon Elbre and Ardi Tampuu for consulting on how to build the result database; Iiris Tuvi, Liisi Kööts-Ausmees and Kristiina Kompus for early testing; Computational Neuroscience Lab and Department of Psychology of the University of Tartu. 
+
+}\newpage
+
+\tableofcontents\label{toc}
+\newpage
+
+
+
+
+
+
+
+\section*{How to use this User Guide}\index{help}
+\addcontentsline{toc}{section}{How to use this User Guide}
+As it is a version \vrexversion , it probably has bugs in it. We appreciate if you reported them to us via e-mail: \vrexmail . We are sorry for possible inconveniences.
+
+You can locate the topics you are interested in from the table of contents (page \pageref{toc}) or from the index (page \pageref{index}). The main functionality of the \vrexx\ toolbox is explained in the section starting from the main functions section (page \pageref{sec:mainf}). Most frequently asked questions have been answered in the FAQ section (page \pageref{sec:faq}).
+
+There is a certain styling used throughout the User Guide to make finding necessary information faster. The style is used as follows:\\
+
+
+\begin{table}[!h]
+\centering
+\noindent\begin{tabular}{p{0.2\textwidth}p{0.7\textwidth}}
+\menu{Menu > Navigation}\index{help!menus} & Menu navigation is displayed like the examples on the left and in here: \menu{Main Menu > Experiment > New} \\
+\directory{C:/ Folder / Path} & Directory paths \\
+\keys{\ctrl + c} & Keyboard keys are displayed in square boxes. \\
+\button{buttons}\index{help!buttons} & The buttons in text are All buttons are written in small capital letters (e.g. \button{new}, \button{edit})\\ 
+\vrexlabel{labels}\index{help!labels} & Labels are formatted in bold (e.g. \vrexlabel{name}, \vrexlabel{TAG}) \\
+\end{tabular} 
+\end{table}
+\newpage
+
+
+
+
+
+
+
+
+
+
+
+\section{Main functions}\label{sec:mainf}\index{main functions}
+\vrexx\ toolbox was designed to help non-programming psychology researchers to make experiments in 3D virtual reality settings. Memory and change blindness research was primarily kept in mind while developing the toolbox.
+
+The main functionality of the \vrexx\ toolbox includes:
+\begin{itemize}
+\item Combining rooms to create environments
+\item Customizing environments by adding and modifying objects
+\item Combining environments to create experiments
+\end{itemize}~\\
+
+Basic workflow might look like this (see figure \ref{fig:vrexstructure}):
+\begin{enumerate}
+\item Prepare environments
+\begin{enumerate}
+\item Use rooms to either autogenerate or manually build an environment.
+\item Autofurnish or manually furnish that environment by objects.
+\end{enumerate}
+\item Add experiment parts
+\begin{enumerate}
+\item Add texts or messages (e.g. instructions)
+\item Add environments
+\item Add tests (e.g. recognition, free recall)
+\end{enumerate}
+\item Set the experiment structure
+\begin{enumerate}
+\item Group experiment parts you would like to present always in the same order using the Ordered group.
+\item Group experiment parts you would like to present in a random order using the Randomized group.
+\end{enumerate}
+\item Pilot and experiment
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{vrexstr}
+\label{fig:vrexstructure}
+\caption{From building environments to experiments}
+\end{figure}
+
+
+
+
+
+\subsection{Environments}\label{sec:env}\index{environment|(}
+\noindent\menu{Main Menu > Environment}
+
+An \emph{environment} is is used as a building block for experiments. They may be seen as experimental conditions. Each environemnt may consist of one or many rooms and may be furnished or not.
+
+Click \button{environment} button from the main menu. You can either create an environment from scratch by clicking \button{new} or dublicate an already existing environment using the \button{duplicate} button and modifying it by clicking \button{edit} from the top menu.
+
+\subsubsection{Create environments from scratch}\label{sec:newenv}\index{environment!create}\index{create environment}
+\noindent\menu{Main Menu > Environment > New > Build}
+
+Click \button{environment} button from the main menu. Then click \button{new} from the top panel, then \button{Build}.
+
+You can now \button{autogenerate} the setting of rooms or combine rooms manually. For autogeneration of rooms --- just specify the number of rooms and objects using a slider, then click \button{build} to autogenerate the setting of rooms and \button{furnish} to put the objects in place. Click the \button{build} and \button{furnish} until you are satisfied with the result. You can also insert or modify the objects later using the \hyperref[sec:enveditor]{environment editor}.
+
+It is possible to connect the rooms manually one by one by clicking the \button{manual} button. You can:
+\begin{itemize}
+\item Select a room type using number keys \keys{1}, \keys{2} and \keys{3}.
+\item Move rooms from door to door using arrow keys \arrows or \wasd keys.
+\item Rotate rooms using \keys{R} and \keys{T}.
+\end{itemize}
+
+When you have found a satisfactory solution click \button{save} to give your environment a \vrexlabel{name} that will remind you of the environment and a \vrexlabel{tag} which will be used in files and folders.
+
+\subsubsection{Create environments from templates}\label{sec:newtempenv}\index{environment!create}\index{create environment}
+\noindent\menu{Main Menu > Environment > New > Template}
+
+Click \button{environment} button from the main menu. Then click \button{new} from the top panel. Choose a \vrexlabel{name} that will remind you of the environment and a \vrexlabel{tag} to which will be used in files and folders. Then select an environment from the existing templates and click \button{create}. You can furnish the created environment using the \hyperref[sec:enveditor]{environment editor}.
+
+\subsubsection{Create environments using existing environments}\label{sec:modenv}\index{environment!modify}
+\noindent\menu{Main Menu > Environment > Duplicate > Edit 3D}
+
+Click \button{environment} button from the main menu. Then select an environment you would like to duplicate and click \button{duplicate}. After giving the dublicate a new \vrexlabel{name} and a \vrexlabel{tag} you continue to modify it for your needs using the \vrexlabel{environment editor} by clicking the \hyperref[sec:enveditor]{\button{edit 3d}} button.
+
+\subsubsection{Envrionment editor}\label{sec:enveditor}\index{environment!environment editor}\index{environment editor}
+\noindent\menu{Main Menu > Environment > Edit 3D}
+
+Environment editor allows you to customize an environment. You can \vrexlabel{add}, \vrexlabel{remove} and \vrexlabel{modify} objects.
+\paragraph{Basics}
+\begin{enumerate}
+\item Getting help inside the toolbox
+\begin{enumerate}
+\item Move a mouse over a nearby \keys{?} button.
+\item or, click \button{help} from the top panel.
+\end{enumerate}
+\item Looking and moving around in the Environment Editor
+\begin{enumerate}
+\item Click and hold Left Mouse Button (LMB) to look around.
+\item Click and hold Right Mouse Button (RMB) to move around.
+\end{enumerate}
+\item Select\slash deselect an object
+\begin{enumerate}
+\item Select by clicking LMB on an object
+\item or, click \button{Show} from the left side panel, then click on an object on the list
+\item Deselect by clicking RMB
+\end{enumerate}
+\item Move an object
+\begin{enumerate}
+\item Use arrow keys \arrows or \wasd to move
+\item Use \keys{Q} or \keys{PgDn} to sink and \keys{E} or \keys{PgUp} to lift an object.
+\item Use \keys{R} or \keys{T} to rotate.
+\item Use \keys{\ctrl + R} or \keys{\ctrl + T} for smooth rotation.
+\item or, use the position, rotation and scale sections of the right side of the object panel.
+\end{enumerate}
+\end{enumerate}
+
+
+\paragraph{Adding objects to environments}\index{objects|(}\label{sec:addobj}
+\begin{enumerate}
+\item Enter the \hyperref[sec:enveditor]{environment editor}.
+\item Click \vrexlabel{Add} on from the left side panel.
+\item Click on the object you would like to add (e.g. StartPoint --- place where player starts in an environment).
+\item Modify the parameters of the added object from the right side panel.
+\end{enumerate}
+
+\paragraph{Modify and delete objects}
+\begin{enumerate}
+\item Enter the \hyperref[sec:enveditor]{environment editor}.
+\item Click \vrexlabel{Show} on from the left side panel.
+\item Click on the object you would like to modify or delete.
+\item Click \menu{Objects > Delete} or \keys{del} key on your keyboard to delete the selected object.
+\item Modify the parameters of an object using the panel on the right.
+\end{enumerate}
+
+\paragraph{Change object color}\label{sec:chcol}~\\
+\menu{Environment Editor > Select Object > Object Panel > Color}
+\begin{enumerate}
+\item Enter the \hyperref[sec:enveditor]{environment editor}.
+\item Click on an object whose color you want to change.
+\item Select a new color for an object from the color matrix from the right side panel.
+\item Additional color options can be accessed by clicking the \button{+} button.
+\item See the section about \hyperref[sec:addeffect]{adding effects} to change the color of the object during experiments.
+\end{enumerate}
+
+\paragraph{Add effects to objects}\label{sec:addeffect}\index{effect}~\\
+\menu{Environment Editor > Select Object > Object Panel > Effect}~\\
+\indent \vrexlabel{Effects} are changes that take place while the object is out of the field of view of the subject. allow to take advantage of the controlled virtual reality environment.
+\begin{enumerate}
+\item Enter the \hyperref[sec:enveditor]{environment editor}.
+\item Click \button{Show} on from the left side panel.
+\item Click on the object to which you would like to add an effect.
+\item Click Scroll down the right side panel to the effects section and choose an effect.
+\begin{enumerate}
+\item \vrexlabel{No effect}.
+\item \vrexlabel{Flicker} --- Makes the object disappear and appear.
+\item \vrexlabel{Color} --- Makes the object color change between the color specified under the object color and the color specified under the effect section.
+\item \vrexlabel{Position} --- Makes the object position change between the position specified under the object position and the position specified under the effect section.
+\end{enumerate}
+\item Set the minimum time between changes. There is no time restriction by default.
+\end{enumerate}\index{environment|)}\index{objects|)}
+
+
+
+
+
+
+
+\subsection{Experiments}\label{sec:exp}\index{experiment|(}
+\noindent\menu{Main Menu > Experiment}
+
+Experiments are made up of \emph{texts}, \emph{environments} and \emph{tests}. \vrexlabel{Texts} are messages (e.g. instructions) which are displayed to the participant in an empty room. \vrexlabel{Environments} consist of one or many rooms and with or without objects in it. Several different means of \vrexlabel{testing} (e.g. recognition, free recall) can be used to test what does the participant remember after going through the environment. The environment structure is specified by groups \vrexlabel{ordered} and \vrexlabel{randomized}.
+
+See the \hyperref[sec:env]{environments} section for further details about how to create new and modify already existing environments. Environments can usually be seen as experimental conditions. 
+
+\subsubsection{Create experiments from scratch}\label{sec:newexp}\index{experiment!create}\index{create experiment|(}
+\noindent\menu{Main Menu > Experiment > New}
+\begin{enumerate}
+\item Click \button{Experiment} from the main menu.
+\item Click \button{New} from the top panel.
+\item Enter a \vrexlabel{name} and a \vrexlabel{tag} (max 8 characters and numbers) for your experiment.
+\item Click \button{Save}.
+\item Continue by setting the \hyperref[sec:expstr]{experiment structure}.
+\end{enumerate}
+
+\subsubsection{Create experiments using existing experiments}\label{sec:modexp}\index{experiment!modify}\index{modify experiment}
+\noindent\menu{Main Menu > Experiment > Duplicate > Edit}
+\begin{enumerate}
+\item Click \button{Experiment} from the main menu.
+\item Click \button{Duplicate} from the top panel.
+\item Enter a \vrexlabel{name} and a \vrexlabel{tag} for your experiment.
+\item Click \button{Save}.
+\item Continue by setting the \hyperref[sec:expstr]{experiment structure}.
+\end{enumerate}\index{create experiment|)}
+
+\subsubsection{Set the experiment structure}\label{sec:expstr}\index{experiment structure}\index{experiment!experiment structure}
+\noindent\menu{Main Menu > Experiment > New}\par\noindent
+\noindent\menu{Main Menu > Experiment > Duplicate > Edit}
+
+\begin{enumerate}
+\item Start a \hyperref[sec:newexp]{new} or \hyperref[sec:modexp]{modify} an existing experiment.
+\item From \vrexlabel{Experiment details} scroll down to the \vrexlabel{Experiment structure}
+\item Group all parts you want to display in a specific order using \hyperref[sec:ordgroup]{ordered groups}.
+\item Group all parts you want to display in a randomized order using \hyperref[sec:randgroup]{randomized groups}.
+\item \hyperref[sec:addtext]{Add texts} (e.g. instructions, end of experiment message)
+\item \hyperref[sec:addenv]{Add environments}
+\item \hyperref[sec:addtest]{Add tests} (e.g. recognition, change blindness test)
+\item Repeat previous stages if necessary.
+\end{enumerate}
+
+\paragraph{Present environments in fixed order}\label{sec:ordgroup}\index{experiment structure!fixed order}\index{fixed order|see{experiment structure}}~\\
+\noindent\menu{Experiment structure > Add > Ordered group}
+\begin{enumerate}
+\item Click on the group where you would like to add an \vrexlabel{ordered} group.
+\item Click \menu{Experiment structure > New > Ordered group}.
+\item Select the added Ordered group and add \vrexlabel{texts}, \vrexlabel{environments} and \vrexlabel{tests} you prefer.
+\end{enumerate}
+
+\paragraph{Present environments in random order}\label{sec:randgroup}\index{experiment structure!random order}\index{random order|see{experiment structure}}~\\
+\noindent\menu{Experiment structure > Add > Randomized group}
+\begin{enumerate}
+\item Click on the group where you would like to add a \vrexlabel{randomized} group).
+\item Click \menu{Experiment structure > New > Randomized group}.
+\item Select the added Randomized group and add \vrexlabel{texts}, \vrexlabel{environments} and \vrexlabel{tests} you prefer.
+\end{enumerate}
+
+\paragraph{Adding texts to experiments}\label{sec:addtext}\index{experiment structure!fixed order}\index{instructions}~\\
+\noindent\menu{Experiment structure > Add > Text}
+\begin{enumerate}
+\item Click on the group where you would like to add the instruction message (i.e. \vrexlabel{experiment}, an existing \vrexlabel{ordered} or \vrexlabel{randomized} group).
+\item Click \menu{Experiment structure > New > Text} and type in the instructions.
+\end{enumerate}
+
+\paragraph{Adding environments to experiments}\label{sec:addenv}\index{experiment!add environments}~\\
+\noindent\menu{Experiment structure > Add > Environment}
+\begin{enumerate}
+\item Click on the group where you would like to add environments (i.e. \vrexlabel{experiment}, an existing \vrexlabel{ordered} or \vrexlabel{randomized} group).
+\item Click \menu{Experiment structure > New > Environment}
+\item Select environments for you expreiment by clicking on them in the order you would like them to be presented.
+\item If you want the environments to be presented in a random order then select the the \vrexlabel{randomized order} option. The environments will then be presented in a randomized order.
+\end{enumerate}
+
+\paragraph{Adding tests to experiments}\label{sec:addtest}\index{experiment!add tests}\index{testing methods}~\\
+\noindent\menu{Experiment structure > Add > Test}
+
+You only need to add tests for \vrexlabel{Memory} experiments. \vrexlabel{Change blindness} experiments have the testing built into them.
+\begin{enumerate}
+\item Click on the group where you would like to add a test (i.e. \vrexlabel{experiment}, an existing \vrexlabel{ordered} or \vrexlabel{randomized} group).
+\item Click \menu{Experiment structure > New > Test}
+\item Select a testing method.
+\begin{enumerate}
+\item \vrexlabel{Recognition --- Field}. Forced-choice conditon \index{testing methods!forced-choice}\index{testing methods!recognition}\index{forced-choice}\index{recognition} where objects from the environment(s) are presented on a field together with distractors experimentator has selected. Subjects task is to find all objects that were presented to him\slash her and select them.
+\item \vrexlabel{Recognition --- Yes\slash No}.\index{testing methods!free-choice}\index{free-choice} Free-choice condition where objects from the environment(s) are presented one at a time in a random order together with the distractors you have selected. Subjects task is to indicate which objects he\slash she has seen before.
+\item \vrexlabel{Free recall --- Keyboard}.\index{testing methods!free recall}\index{free recall} Subject needs to type in the answer.
+\item \vrexlabel{Free recall --- Microphone}. Subject needs to tell the answer to a microphone.
+\item \vrexlabel{Cued recall}.\index{testing methods!cued recall}\index{cued recall} Will be added with next versions.
+\end{enumerate}
+\item Select an environment(s) to be tested.
+\end{enumerate}\index{experiment|)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\comm{
+\newpage
+\section{Extend functionality}
+The main functionality of \vrexx\ can be extended when you dig deeper into the 3D modeling world using external programs such as Unity or Blender.
+
+\subsection{Add new object templates}
+Sorry, this functionality will be available in upcoming versions
+\comm{
+It is possible to expand the selection of objects by creating 3D objects of your own or downloading them for example from the Blend Swap webpage \href{www.blendswap.com}{www.blendswap.com}. You can then place the XXXX prefab files into the following directory:
+
+\directory{C:/ ... / VREX Toolbox / Extend / User Objects}
+
+The added objects appear in the objects list in the \hyperref[sec:enveditor]{environment editor} next time you run the toolbox.
+
+\textbf{NB!} The user added objects are not standardized which means they do not behave like the rest of the objects. It may be possible to walk through it, the shadows might be different and \label{Move to ground} button might not work etc.
+}
+
+\subsection{Add new room templates}
+Sorry, this functionality will be available in upcoming versions.
+\comm{
+It is possible to expand the selection of room templates by creating 3D rooms of your own or downloading them for example from the Blend Swap webpage \href{www.blendswap.com}{www.blendswap.com}. You can then place the XXXX prefab files into the following directory:
+
+\directory{C:/ ... / VREX Toolbox / Extend / User Rooms}
+
+The added rooms appear in the room templates list after clicking \menu{Main Menu > Environment > New > Template} next time you run the toolbox.
+
+\textbf{NB!} The user added rooms are not standardized which means they do not behave like the rest of the rooms. It may be possible to walk through walls, the shadows might be different etc.
+}
+
+\subsection{Add new functionality to the core \vrexx\ toolbox}
+Unfortunately \vrexx\ toolbox \vrexversion\ does not offer any scripting possibilities. But you can join the developers team or support us in other ways. Please see the \emph{How to contribute to the \vrexx\ project?} section (page \pageref{sec:howcontribute}) for further information.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Troubleshooting}
+\subsection{Problems with the order of environments}
+Please read the paragraphs about the \hyperref[sec:expstr]{experiment structure}, \hyperref[sec:ordgroup]{ordered environments} and \hyperref[sec:randgroup]{randomized environments} first. If you want to present environments in a random order, then you should select the \vrexlabel{randomize order} option when you add or edit environments. Adding \vrexlabel{environment groups} to a \vrexlabel{randomized group} will not randomize the environments inside the environment group. It will only randomize the order of each group, text and test.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{FAQ}\label{sec:faq}\index{FAQ|(}
+\subsection{How to set the player starting point in environments?}
+\noindent \menu{Environment Editor > Objects > Add > StartPoint}
+\begin{enumerate}
+\item Enter the \hyperref[sec:enveditor]{environment editor}.
+\item \hyperref[sec:addobj]{Add an object} \vrexlabel{StartPoint}.
+\item Place it where you want it.
+\end{enumerate}
+
+\subsection{Why is there a name and a tag for experiments and environments?}
+\vrexlabel{Name} is a mnemonic name you give for your environements and experiments to easily distinguish it inside the program. But it would be too long to be used in files and folders. \vrexlabel{Tags} with a maximum length of 8 characters and numbers are used there instead.
+
+\subsection{Can I change the color of the walls?}
+No, the \vrexx\ version \vrexversion\ does not support changing the color of walls. See the section about \hyperref[sec:chcol]{changing the color} and \hyperref[sec:addeffect]{adding effects} to objects.
+
+\subsection{Can I use modify rooms after the environment has been created?}
+No, the \vrexx\ version \vrexversion\ does not support modifying the rooms after the environment has been created. You can only modify how rooms connect to each other while \hyperref[sec:newenv]{creating an environment} from scratch.
+
+Although you can not modify the rooms after they have been created, you can modify what objects are in the environment using the \hyperref[sec:enveditor]{environment editor}.
+
+\subsection{What data are collected during experiments?}
+\vrexx\ logs experiment flow to be exported later for data analysis. The log file is saved onto the local hard drive. It is not shared with anyone else without your permission. There are several things in \vrexx\ \vrexversion\ that are logged, but easy export is not yet supported. We are working on supporting more ways to export the data in upcoming versions. The following data are collected:
+\begin{enumerate}
+    \item Experiment details
+    \begin{enumerate}
+    	\item Experiment tag
+    	\item Experiment starting time
+    	\item Experiment type
+    	\item Structure of an experiment
+    \end{enumerate}
+    \item Subject ID
+    \item Environments and test results
+    \begin{enumerate}
+	    \item Environment tag
+    	\item Order among other environments
+    	\item Test type for this environment
+    	\item Objects in an environment
+    \end{enumerate}
+    \item Results
+    \begin{enumerate}
+    	\item Change blindness experiment
+    	\begin{enumerate}
+    		\item Score (1 for a correct answer, 0 for a false answer)
+    		\item Number of changes before subjects chose an answer (i.e. +1 for both disappearing and appearing of an object)
+    		\item Target object (e.g. object that changed)
+    		\item Subject's choice (e.g. object the subject chose)
+    		\item Time it took to make a choice
+    	\end{enumerate}
+    	\item Memory experiment --- Recognition
+    	\begin{enumerate}
+    		\item Score --- number of correct answeres. Left empty if the environment was not tested.
+    		\item Number of objects in an environment
+    		\item Number of distractors in a test
+    		\item Time it took to complete the test
+    		\item Necessities for analysis based on signal detection theory (SDT) --- number of hits, false alarms, correct rejections, misses
+    	\end{enumerate}
+	   	\item Memory experiment --- Free recall (* --- keyboard only)
+    	\begin{enumerate}
+    		\item Score --- left empty
+    		\item Subject's answer*
+    	\end{enumerate}
+    \end{enumerate}
+    \item Coordinates of subjects in each environment
+    \item Camera angles of subjects in each environment
+\end{enumerate}
+
+\subsection{How to report bugs?}\label{sec:reportbugs}
+We appreciate it when you report any failures or errors you encounter when using the toolbox. Just send us an e-mail to \vrexmail. Please include:
+\begin{itemize}
+\item "Bug Report" as a title
+\item Where did it happen (e.g. main menu, environment editor, experiment structure)
+\item What were you doing right before (e.g. clicked Main Menu > Experiments > New, pressed \keys{\ctrl + c})
+\item What happened
+\end{itemize}
+\index{FAQ!bugs}
+
+\subsection{Can I propose additional functionality to the \vrexx\ toolbox?}\label{sec:proposefunc}
+Yes, we appreciate if you share what functionality should be added to the \vrexx\ toolbox. Just send us an e-mail to \vrexmail. Please include:
+\begin{itemize}
+\item "Functionality" as a title
+\item Description of the proposed functionality
+\item Why would it be particularly useful?
+\end{itemize}
+
+\subsection{How to contribute to the \vrexx\ project?}\label{sec:howcontribute}
+\noindent You can help to improve the \vrexx\ toolbox mainly by:
+\begin{itemize}
+\item Reporting bugs (see page \pageref{sec:reportbugs})
+\item Proposing additional functionality (see page \pageref{sec:proposefunc})
+\item Promoting the use of \vrexx\ toolbox for research
+\item Promoting \vrexx\ development as a possibility for bachelor and master thesis in computer science, psychology and related fields
+\item Joining the developers team
+\end{itemize}
+
+You can join the developers team or find specific topics for bachelor and master theses by contacting us via e-mail (\vrexmail). %XXXX You can already have a look at the source code from here: \vrexrepository. \vrexx\ is licenced under Creative Commons BY-SA licence \vrexlicence.
+
+Read more about the licence from: \licenceinfo
+\index{FAQ|)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Further help}
+Additional information can be found visiting our homepage or writing us an e-mail.\\
+
+\vrexcontact
+\index{help}\index{contact}
+
+\appendix
+\printindex\label{index}
+\addcontentsline{toc}{section}{Index}
+\end{document}
